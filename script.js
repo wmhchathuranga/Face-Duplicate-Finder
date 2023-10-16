@@ -71,8 +71,10 @@ document.getElementById('myForm2').addEventListener('submit', function (event) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       const response = JSON.parse(xhr.responseText);
-      let table = document.getElementById('matching-table');
-      console.log(response.created[0]);
+      if (response.status) {
+        document.getElementById('success-msg').innerText = "User Trained!";
+        document.getElementById('myForm2').classList.add('d-none');
+      }
       // if (response.recognized) {
       //   let confidence = response.confidence;
       //   confidence.forEach(element => {

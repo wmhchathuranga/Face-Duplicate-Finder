@@ -59,7 +59,7 @@
         $response = curl_exec($curl);
         // print($response);
         curl_close($curl);
-        faceTrain($uid);
+        return faceTrain($uid);
     }
 
     function faceTrain($uid)
@@ -71,7 +71,16 @@
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($curl);
         curl_close($curl);
-        print $response;
+        $result = json_decode($response);
+        $created = new stdClass();
+        if ($result->created[0]->uid) {
+            $created->status = "success";
+            $created->uid = $result->created[0]->uid;
+        } else {
+            $created->status = "failed";
+            $created->uid = $result->created[0]->uid;
+        }
+        return $created;
     }
 
     function faceRecognize($img)
