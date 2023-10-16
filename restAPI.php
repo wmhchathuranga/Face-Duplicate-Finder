@@ -57,7 +57,7 @@
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($curl);
-        print($response);
+        // print($response);
         curl_close($curl);
         faceTrain($uid);
     }
@@ -84,22 +84,29 @@
         $response = curl_exec($curl);
         curl_close($curl);
         $result = json_decode($response);
+        // echo $response;
+        // die;
         $uid_results = $result->photos[0]->tags[0]->uids;
         $matched = false;
+        $imgObj = new stdClass();
+        $uidArray = [];
         foreach ($uid_results as $uid) {
-            print($uid->uid . " : " . $uid->confidence);
             if ($uid->confidence > 75) {
-                print(" Matching");
                 $matched = true;
+                $imgObj->recognized = true;
+                $confidence = new stdClass();
+                $confidence->uid = explode('@', $uid->uid)[0];
+                $confidence->matching = $uid->confidence;
+                array_push($uidArray, $confidence);
+                $imgObj->confidence = $uidArray;
             }
-            print("</br>");
         }
+
         if (!$matched) {
             $tid = $result->photos[0]->tags[0]->tid;
-            print($tid);
-            faceSave($tid, "LIMA", "timebucks");
+            $imgObj->recognized = false;
+            $imgObj->tid = $tid;
         }
-    }
 
-    // getTrainedUsers("timebucks");
-    faceRecognize($photo);
+        return $imgObj;
+    }

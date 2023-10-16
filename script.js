@@ -1,46 +1,127 @@
-// Get a reference to the alert element
-const alertElement = document.getElementById('myAlert');
 
-// Function to hide the alert with a fade-out effect
-function hideAlertWithFade() {
-  alertElement.classList.remove('show');
-  alertElement.classList.add('fade');
+//create XMLHttRequest to send image url
+document.getElementById('myForm').addEventListener('submit', function (event) {
+  event.preventDefault();
 
-  // After the fade-out animation is complete, you can remove or hide the element
-  setTimeout(() => {
-    alertElement.style.display = 'none'; // You can also use .remove() to remove it from the DOM
-  }, 2000); // Adjust the timing based on your transition duration
-}
+  const url = document.getElementById('urlInput').value;
+  const action = document.getElementById('actionInput').value;
 
-// Set a timer to hide the alert with a fade-out effect after 30 seconds (30,000 milliseconds)
-setTimeout(hideAlertWithFade, 2000);
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'http://127.0.0.1/api.php  ', true);
+  let data = new FormData();
+  data.append('action', action);
+  data.append('image', url);
 
+  xhr.onreadystatechange = function () {
+    let table = document.getElementById('matching-table');
+    if (table.querySelector('#matching-table-body'))
+      table.querySelector('#matching-table-body').remove();
+    let tableBody = document.createElement('tbody');
+    tableBody.id = "matching-table-body";
+    let imgPreview = document.getElementById('img-preview');
+    imgPreview.setAttribute('src', '');
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      imgPreview.setAttribute('src', url)
+      const response = JSON.parse(xhr.responseText);
+      if (response.recognized) {
+        let confidence = response.confidence;
+        confidence.forEach(element => {
+          row = document.createElement('tr');
+          td1 = document.createElement('td');
+          td1.innerText = element.uid;
+          td2 = document.createElement('td');
+          td2.innerText = element.matching;
+          row.appendChild(td1);
+          row.appendChild(td2);
+          tableBody.appendChild(row);
+        });
 
-// check conditon and show content
+        table.appendChild(tableBody);
+        table.classList.remove('d-none');
+        condition = true
+        formChanger(condition)
+      }
+      else {
+        table.classList.add('d-none');
+        condition = false
+        formChanger(condition)
+        document.getElementById('tid').value = response.tid;
+      }
+    }
+  };
 
-let condition = true
+  // const data = JSON.stringify({ url, action });
+  xhr.send(data);
 
+});
+document.getElementById('myForm2').addEventListener('submit', function (event) {
+  event.preventDefault();
 
+  const uidTag = document.getElementById('uid-tag').value;
+  const action = document.getElementById('actionTrain').value;
+  const tid = document.getElementById('tid').value;
 
-// Get references to the content sections
-const conditionalContent = document.getElementById('conditionalContent');
-const alternateContent = document.getElementById('alternateContent');
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'http://127.0.0.1/api.php  ', true);
+  let data = new FormData();
+  data.append('action', action);
+  data.append('tag', uidTag);
+  data.append('tid', tid);
 
-// Get references to the elements
-//   const successAlert = document.getElementById('successAlert');
-//   const errorAlert = document.getElementById('errorAlert');
-const myForm = document.getElementById('myForm');
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      const response = JSON.parse(xhr.responseText);
+      let table = document.getElementById('matching-table');
+      console.log(response.created[0]);
+      // if (response.recognized) {
+      //   let confidence = response.confidence;
+      //   confidence.forEach(element => {
+      //     row = document.createElement('tr');
+      //     td1 = document.createElement('td');
+      //     td1.innerText = element.uid;
+      //     td2 = document.createElement('td');
+      //     td2.innerText = element.matching;
+      //     row.appendChild(td1);
+      //     row.appendChild(td2);
+      //     table.appendChild(row);
+      //   });
 
+      //   table.classList.remove('d-none');
+      //   condition = true
+      //   formChanger(condition)
+      // }
+      // else {
+      //   table.classList.add('d-none');
+      //   condition = false;
+      //   formChanger(condition);
+      // }
+    }
+  };
 
-if (condition) {
-  // If the condition is ture, show the second alert and hide the form
-  conditionalContent.style.display = 'block';
-  alternateContent.style.display = 'none';
-  myForm.style.display = 'none'; // Ensure the form is hidden
-} else {
+  // const data = JSON.stringify({ url, action });
+  xhr.send(data);
 
+});
 
-  // If the condition is false, show the first alert and the form
-  conditionalContent.style.display = 'none';
-  alternateContent.style.display = 'block'; // Ensure the alternate content is hidden
+function formChanger(condition) {
+
+  const conditionalContent = document.getElementById('conditionalContent');
+  const alternateContent = document.getElementById('alternateContent');
+  const myForm = document.getElementById('myForm2');
+
+  if (condition) {
+    conditionalContent.classList.remove('d-none');
+    conditionalContent.classList.add('show');
+    alternateContent.classList.add('d-none');
+    alternateContent.classList.remove('show');
+    myForm.classList.add('d-none');
+  } else {
+    alternateContent.classList.remove('d-none');
+    alternateContent.classList.add('show');
+    conditionalContent.classList.add('d-none');
+    conditionalContent.classList.remove('show');
+    myForm.classList.remove('d-none');
+    myForm.classList.add('d-flex');
+  }
+
 }
