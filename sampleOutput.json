@@ -1,0 +1,70 @@
+{
+    "status": "success",
+    "photos": [
+        {
+            "url": "https:\/\/media.licdn.com\/dms\/image\/D5603AQFxs9syMnBJuQ\/profile-displayphoto-shrink_200_200\/0\/1675399773013?e=1702512000&v=beta&t=N7GAGwwf01rbHdfdbR5XlYhNDtvUmcSaXd6auDhDs-U",
+            "pid": "F@0c29541a1078256f003c411a1980f37a_c10ebd5dbc229",
+            "width": 200,
+            "height": 200,
+            "tags": [
+                {
+                    "uids": [],
+                    "label": null,
+                    "confirmed": false,
+                    "manual": false,
+                    "width": 27,
+                    "height": 40.5,
+                    "yaw": 3,
+                    "roll": 1,
+                    "pitch": -11,
+                    "attributes": {
+                        "face": {
+                            "value": "true",
+                            "confidence": 93
+                        }
+                    },
+                    "points": null,
+                    "similarities": null,
+                    "tid": "TEMP_F@0c29541a1078256f003c411a00650051_c10ebd5dbc229_50.50_40.50_0_1",
+                    "recognizable": true,
+                    "center": {
+                        "x": 50.5,
+                        "y": 40.5
+                    },
+                    "eye_left": {
+                        "x": 57,
+                        "y": 36.5,
+                        "confidence": 98,
+                        "id": 449
+                    },
+                    "eye_right": {
+                        "x": 42.5,
+                        "y": 36.5,
+                        "confidence": 99,
+                        "id": 450
+                    },
+                    "mouth_center": {
+                        "x": 49.5,
+                        "y": 51,
+                        "confidence": 96,
+                        "id": 615
+                    },
+                    "nose": {
+                        "x": 49.5,
+                        "y": 46,
+                        "confidence": 100,
+                        "id": 403
+                    }
+                }
+            ]
+        }
+    ],
+    "usage": {
+        "used": 21,
+        "remaining": 79,
+        "limit": 100,
+        "reset_time": 1696971255,
+        "reset_time_text": "Tue, 10 October 2023 20:54:15 +0000"
+    },
+    "operation_id": "84d5a62930754db7b6e785616805b48c"
+}
