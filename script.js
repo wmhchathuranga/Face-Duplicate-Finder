@@ -3,12 +3,14 @@ document.getElementById('myForm').addEventListener('submit', function (event) {
 
   const url = document.getElementById('urlInput').value;
   const action = document.getElementById('actionInput').value;
+  const namespace = document.getElementById('namespace1').value;
 
   const xhr = new XMLHttpRequest();
   xhr.open('POST', 'http://127.0.0.1/api.php  ', true);
   let data = new FormData();
   data.append('action', action);
   data.append('image', url);
+  data.append('namespace', namespace);
 
   xhr.onreadystatechange = function () {
 
@@ -61,6 +63,7 @@ document.getElementById('myForm2').addEventListener('submit', function (event) {
   const uidTag = document.getElementById('uid-tag').value;
   const action = document.getElementById('actionTrain').value;
   const tid = document.getElementById('tid').value;
+  const namespace = document.getElementById('namespace2').value;
 
   const xhr = new XMLHttpRequest();
   xhr.open('POST', 'http://127.0.0.1/api.php  ', true);
@@ -68,6 +71,7 @@ document.getElementById('myForm2').addEventListener('submit', function (event) {
   data.append('action', action);
   data.append('tag', uidTag);
   data.append('tid', tid);
+  data.append('namespace', namespace);
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {

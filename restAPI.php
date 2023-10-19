@@ -83,11 +83,11 @@
         return $created;
     }
 
-    function faceRecognize($img)
+    function faceRecognize($img, $namespace)
     {
         $api_method = "faces/recognize";
         $url = getEndpoint($api_method);
-        $url = $url . "&urls=" . $img . "&uids=all@timebucks";
+        $url = $url . "&urls=" . $img . "&uids=all@" . $namespace;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($curl);

@@ -28,6 +28,13 @@
                                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                                 </div>
                             </div>
+                            <div class="mt-2 mb-4" style="width: 10%;">
+                                <label for="dropdown" class="form-label fw-bold">Namespace</label>
+                                <select class="form-select" aria-label="Default select example" id="namespace1">
+                                    <option value="timebucks" selected>Timebucks</option>
+                                    <option value="timewall">Timewall</option>
+                                </select>
+                            </div>
 
                             <button type="submit" class="btn btn-success me-auto fw-bold">Recognize
                                 Face</button>
@@ -90,6 +97,13 @@
                                 </div>
                             </div>
 
+                            <div class="mt-2 mb-4" style="width: 10%;">
+                                <label for="dropdown" class="form-label fw-bold">Namespace</label>
+                                <select class="form-select" aria-label="Default select example" id="namespace2">
+                                    <option value="timebucks" selected>Timebucks</option>
+                                    <option value="timewall">Timewall</option>
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-success me-auto fw-bold">Save User</button>
                         </div>
                     </div>
