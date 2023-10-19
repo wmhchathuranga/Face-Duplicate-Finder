@@ -8,8 +8,8 @@
 
     function getEndpoint($api_method)
     {
-        $api_key = "ko8l77vj2396erkcr9sopuljjg";
-        $api_secret = "29n2b3truitanv6u510fl90u2i";
+        $api_key = "";
+        $api_secret = "";
         $api_url = "http://api.skybiometry.com/fc/";
         return $api_url . $api_method . ".json?api_key=" . $api_key . "&api_secret=" . $api_secret;
     }
